@@ -225,7 +225,8 @@ export const RULES = [
 
   { id: 'RB-026', level: 'warn', name: 'send-risky-recipient', summary: 'A transfer to a history-less or unverified address is allowed, and said aloud.',
     when: (x) => x.kind === 'transfer' || x.kind === 'native_transfer',
-    check: (x, c) => (!TAKES.has(c.act) && c.risk(x.to) === 'high' ? { text: `The recipient is ${c.d(x.to)}.` } : null) },
+    check: (x, c) => (!TAKES.has(c.act) && c.risk(x.to) === 'high'
+      ? { text: c.facts?.[lc(x.to)]?.isContract ? 'That recipient is a contract nobody has verified. Make sure you meant it.' : "That address has never been used before. Make sure it's the right one." } : null) },
 ];
 
 const plain = (v) => (typeof v === 'bigint' ? v.toString() : v);

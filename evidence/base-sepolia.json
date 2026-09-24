@@ -1,0 +1,13 @@
+{
+  "guarded Safe": "0x48aB94CfED0045456DfcD750Bf419199a5fa11d5",
+  "control Safe (no guard)": "0xea0A2Dc8dAdf04fa670ADC42Ee4253fbD04b1334",
+  "notary on guard": "0x6c03c3e651a48f25837A62090559D7BdFdc32F65",
+  "guard installed": "yes",
+  "notary verdict (honest)": "match | That matches. It will send 0.0001 ETH to a wallet address with no history at all. The recipient is a wallet address with no history at all. Say confirm to sign.",
+  "honest transfer, guarded Safe": "success https://sepolia.basescan.org/tx/0x1ecb75a4b62be2006ea94168e2232ec0a371ed3e6eb2fa72b05ae5f23ab42c69",
+  "notary verdict (Bybit shape)": "block | Stop. This doesn't send anything. It hands control of your Safe to an unverified contract, deployed 1 hour ago. That is how Bybit lost one and a half billion dollars. | attestation: none",
+  "Bybit shape, guarded Safe": "reverted https://sepolia.basescan.org/tx/0x8e3c182b7ae8eff58907db8cd6c35699049413e6f5c88958384e197f8eed8bd8",
+  "guarded implementation after": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
+  "Bybit shape, control Safe": "success https://sepolia.basescan.org/tx/0x7919e8e9d0556cdb54f3045e97d6f1251ffc4d4cc06682d92190ec35fe4dae11",
+  "control implementation after": "0x60b70BC2E774d7A781138009A28B2917893dc98A"
+}
