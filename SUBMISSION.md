@@ -24,9 +24,10 @@ Measured: 15/15 spoken intents understood, 15/15 verdicts spoken verbatim, 24/24
 - Guard: https://base-sepolia.blockscout.com/address/0xAA3356D3E0237898a3A613E111625043A1614355?tab=contract
 
 ## Assets
-- [ ] Cover image 16:9: `submission/cover.png`
-- [ ] Slide deck PDF: `submission/readback-deck.pdf`
-- [ ] Video MP4 under 5 min: `submission/readback-demo.mp4`
+- [x] Cover image 16:9, 1920x1080: `submission/cover.png`
+- [x] Slide deck PDF, 10 slides: `submission/readback-deck.pdf`
+- [x] Video MP4, 2:44, 29 MB, loudness -16 LUFS: `submission/readback-demo.mp4`
+      Real sessions recorded on the live site with the real AssemblyAI agent voice.
 
 ## Technologies
 AssemblyAI Voice Agent API, Next.js, viem, wagmi, Solidity, Foundry, Safe, Base

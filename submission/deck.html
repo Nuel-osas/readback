@@ -1,0 +1,118 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=satoshi@400,500,700&display=block">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=block">
+<style>
+@page{size:1920px 1080px;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Satoshi,sans-serif;background:#07080a;color:#eef0f3}
+.s{width:1920px;height:1080px;position:relative;overflow:hidden;page-break-after:always;background:#07080a}
+.light{background:#eceee9;color:#0d1110}
+.hud{position:absolute;inset:0;font:500 17px 'JetBrains Mono';letter-spacing:3px;text-transform:uppercase;color:rgba(238,240,243,.45);pointer-events:none}
+.light .hud{color:rgba(13,17,16,.5)}
+.hud .tl{position:absolute;left:64px;top:48px}.hud .tr{position:absolute;right:64px;top:48px}
+.hud .bl{position:absolute;left:64px;bottom:72px}.hud .br{position:absolute;right:58px;bottom:66px;font-size:26px;letter-spacing:0}
+.hud .bar{position:absolute;left:64px;right:64px;bottom:54px;height:2px;background:rgba(255,255,255,.12)}
+.light .hud .bar{background:rgba(13,17,16,.14)}
+.hud .bar i{display:block;height:2px;background:#ffb547}.light .hud .bar i{background:#0d1110}
+h1,h2,.big{font-family:'Clash Display',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:-.018em;word-spacing:.14em;line-height:.96}
+h1{font-size:200px}h2{font-size:104px}
+.big{font-size:230px;text-transform:none;letter-spacing:-.04em;word-spacing:0}
+.lbl{font:500 20px 'JetBrains Mono';letter-spacing:4px;text-transform:uppercase;color:#ffb547}
+.light .lbl{color:#0d1110;opacity:.6}
+.p{font-size:32px;line-height:1.45;color:#a7adb7;max-width:900px}.light .p{color:rgba(13,17,16,.66)}
+.mono{font-family:'JetBrains Mono'}
+.center{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 120px}
+.half{position:absolute;top:0;bottom:0;width:960px;display:flex;flex-direction:column;justify-content:center;padding:0 100px}
+.l{left:0}.r{right:0}
+.photo{position:absolute;top:0;bottom:0;background-size:cover}
+.go{color:#3ddc97}.stop{color:#ff5a4f}.amber{color:#ffb547}
+.cols{position:absolute;inset:0;display:grid}
+.col{padding:0 64px;display:flex;flex-direction:column;justify-content:center;border-left:1px solid rgba(255,255,255,.1)}
+.col:first-child{border-left:0}.light .col{border-left-color:rgba(13,17,16,.12)}
+.col h3{font:600 64px/1 'Clash Display';text-transform:uppercase;letter-spacing:-1px;word-spacing:.12em;margin:18px 0}
+.col .by{font:500 22px 'JetBrains Mono';color:#ffb547;margin-bottom:18px}
+.col p{font-size:27px;line-height:1.42;color:#a7adb7}
+.say{font-size:34px;line-height:1.35;padding:26px 30px;border-radius:18px;margin-top:18px}
+.say b{font:700 17px 'JetBrains Mono';letter-spacing:3px;padding:5px 10px;border-radius:7px;margin-right:14px;vertical-align:4px}
+.say.stop{background:rgba(255,90,79,.12);color:#ffd4d0}.say.stop b{background:#ff5a4f;color:#1a0706}
+.say.go{background:rgba(61,220,151,.1);color:#d6f7e8}.say.go b{background:#3ddc97;color:#04170f}
+table{border-collapse:collapse;width:100%;font-size:28px}
+td,th{padding:20px 22px;border-top:1px solid rgba(255,255,255,.1);text-align:left;vertical-align:top}
+th{font:500 18px 'JetBrains Mono';letter-spacing:3px;color:#6c727d;text-transform:uppercase;border-top:0}
+.stat{font:600 150px/1 'Clash Display';letter-spacing:-6px}
+.horizon{background:linear-gradient(90deg,#1b3fae 0%,#3a67d9 30%,#e8742a 72%,#ff9a3c 100%);-webkit-background-clip:text;color:transparent}
+</style></head><body>
+
+<!-- 1 -->
+<section class="s"><div class="photo" style="inset:0;background-image:url(cockpit.webp);background-position:center 40%;opacity:.55"></div>
+<div style="position:absolute;inset:0;background:linear-gradient(90deg,#07080a 25%,rgba(7,8,10,.4))"></div>
+<div class="center"><div class="lbl">AssemblyAI Voice Agent Hackathon · Sep 2026</div><h1 style="margin:34px 0 26px;text-transform:none;letter-spacing:-6px;word-spacing:0">Readback</h1>
+<div style="font:500 62px 'Clash Display'" class="horizon">Say what you think you’re signing.</div>
+<p class="p" style="margin-top:34px">A voice-verified signing protocol. It hears what you mean to sign, decodes what the transaction really does, and a Safe guard refuses anything that wasn’t read back.</p></div>
+<div class="hud"><span class="tl">Readback / Voice-verified signing</span><span class="tr">01 / 10</span><span class="bl">readback-phi.vercel.app</span><span class="br">+</span><span class="bar"><i style="width:10%"></i></span></div></section>
+
+<!-- 2 -->
+<section class="s"><div class="half l light" style="background:#eceee9;color:#0d1110"><div class="lbl" style="color:#0d1110;opacity:.6">What the screen showed</div><h2 style="margin:26px 0 30px">A routine transfer.</h2><div class="mono" style="font-size:28px">transfer · cold wallet → warm wallet</div></div>
+<div class="half r"><div class="lbl stop">What the wallets signed</div><h2 style="margin:26px 0 30px">A takeover.</h2><div class="mono stop" style="font-size:28px">operation 1 · DELEGATECALL → 0x9622…7242</div>
+<p class="p" style="margin-top:40px">Bybit, February 21, 2025. <b style="color:#eef0f3">$1.46B</b>, one transaction. Every signer checked it, on the channel the attacker controlled.</p></div>
+<div class="hud"><span class="tl">Readback / The problem</span><span class="tr">02 / 10</span><span class="br">+</span><span class="bar"><i style="width:20%"></i></span></div></section>
+
+<!-- 3 -->
+<section class="s"><div class="photo" style="left:0;width:760px;background-image:url(tower.webp);background-position:center 45%"></div>
+<div class="half r" style="width:1060px"><div class="lbl">The fix is seventy years old</div><h2 style="margin:26px 0 40px;font-size:96px">Pilots read every instruction back.</h2>
+<table><tr><td class="mono" style="width:170px;color:#6c727d;font-size:20px">TOWER</td><td class="amber">“Climb to flight level three-five-zero.”</td></tr><tr><td class="mono" style="color:#6c727d;font-size:20px">PILOT</td><td class="go">“Climbing to three-five-zero.”</td></tr><tr><td class="mono" style="color:#6c727d;font-size:20px">YOU</td><td class="amber">“Send one ETH to my cold wallet.”</td></tr><tr><td class="mono" style="color:#6c727d;font-size:20px">READBACK</td><td class="stop">“Stop. This hands control of your Safe to an unverified contract.”</td></tr></table></div>
+<div class="hud"><span class="tl">Readback / The insight</span><span class="tr">03 / 10</span><span class="br">+</span><span class="bar"><i style="width:30%"></i></span></div></section>
+
+<!-- 4 -->
+<section class="s"><div class="center"><div class="lbl">Three real readbacks · live site · real AssemblyAI voice</div>
+<div class="say stop" style="margin-top:40px"><b>STOP</b>“Claim my airdrop.” · <span style="opacity:.8">A claim should give you something. This lets a wallet address with no history at all take your USDC, all of it, forever.</span></div>
+<div class="say stop"><b>STOP</b>“Send one ETH to my cold wallet.” · <span style="opacity:.8">This doesn’t send anything. It hands control of your Safe to an unverified contract.</span></div>
+<div class="say go"><b>MATCH</b>“Swap a hundred USDC for ETH.” · <span style="opacity:.8">It will swap 100 USDC for at least 0.02 WETH through the Uniswap swap router, paid to you. Say confirm to sign.</span></div>
+<p class="p" style="margin-top:36px;max-width:1500px">Readback never shows you what a transaction does until you’ve said what you think it does. Otherwise you would just read it aloud.</p></div>
+<div class="hud"><span class="tl">Readback / The product</span><span class="tr">04 / 10</span><span class="br">+</span><span class="bar"><i style="width:40%"></i></span></div></section>
+
+<!-- 5 -->
+<section class="s"><div class="cols" style="grid-template-columns:repeat(3,1fr)">
+<div class="col"><div class="lbl" style="color:#6c727d">01 · Hear</div><h3>You say it.</h3><div class="by">AssemblyAI Voice Agent API</div><p>One WebSocket: speech, turn detection, tool calling, voice. The agent records your intent as a strict schema through a tool call. It never sees the transaction, so it can’t be talked into agreeing with it.</p></div>
+<div class="col"><div class="lbl" style="color:#6c727d">02 · Decide</div><h3>Rules check it.</h3><div class="by">Notary · @readback/core</div><p>Decodes the real calldata server-side, unpacks router multicalls and Safe MultiSend batches, checks every address on Base. 27 deterministic rules. Every finding names its rule. No model decides.</p></div>
+<div class="col"><div class="lbl" style="color:#6c727d">03 · Enforce</div><h3>The chain refuses.</h3><div class="by">ReadbackGuard · Safe guard</div><p>A match on a Safe yields an EIP-712 attestation over the exact Safe tx hash. The guard refuses any transaction without one. Owner signatures alone are no longer enough.</p></div></div>
+<div class="hud"><span class="tl">Readback / Architecture</span><span class="tr">05 / 10</span><span class="br">+</span><span class="bar"><i style="width:50%"></i></span></div></section>
+
+<!-- 6 -->
+<section class="s"><div class="center"><div class="lbl">Research first: read the precedents at the source</div><h2 style="margin:26px 0 40px;font-size:84px">What we took, and what we refused.</h2>
+<table><tr><th style="width:360px">Precedent</th><th>We take</th><th>We reject</th></tr>
+<tr><td>Safe Research <b>Fiducia</b></td><td>Its cosigner transport: attestation appended to Safe signatures</td><td class="stop">Its hash zeroes gas fields; one cosign permanently allowlists (to, selector, op)</td></tr>
+<tr><td>Safe Research <b>Guardrail</b></td><td>Delegatecall allowlist, delayed guard exit</td><td>Rebuilding it</td></tr>
+<tr><td><b>ERC-7730</b> clear signing</td><td>Breadth for protocol calls: +11.2% measured</td><td>Using it for attack primitives, where rules need typed semantics</td></tr>
+<tr><td>AssemblyAI <b>Voice Agent API</b></td><td>Tool calling as intent extraction</td><td>The voice as authority: enforcement never depends on it</td></tr></table></div>
+<div class="hud"><span class="tl">Readback / Design</span><span class="tr">06 / 10</span><span class="br">+</span><span class="bar"><i style="width:60%"></i></span></div></section>
+
+<!-- 7 -->
+<section class="s"><div class="half l"><div class="lbl" style="color:#6c727d">With ReadbackGuard</div><h2 class="go" style="margin:24px 0 30px;font-size:124px">Reverted.</h2><p class="p">Implementation after: <span class="mono" style="color:#eef0f3">0x29fc…C762</span>, Safe’s own SafeL2 1.4.1. Untouched.</p><div class="mono" style="font-size:20px;color:#6c727d;margin-top:26px">tx 0x8e3c182b…8bd8</div></div>
+<div class="half r" style="border-left:1px solid rgba(255,255,255,.1)"><div class="lbl" style="color:#6c727d">Without it</div><h2 class="stop" style="margin:24px 0 30px;font-size:124px">Taken over.</h2><p class="p">Implementation after: <span class="mono" style="color:#eef0f3">0x60b7…c98A</span>, the attacker’s contract.</p><div class="mono" style="font-size:20px;color:#6c727d;margin-top:26px">tx 0x7919e8e9…e11</div></div>
+<div style="position:absolute;left:100px;right:100px;top:150px" class="lbl">Base Sepolia · same Bybit-shaped transaction · both owners signed</div>
+<div style="position:absolute;left:100px;right:100px;bottom:120px" class="p">And a transfer attested by a spoken readback in the browser executed through the guard: <span class="mono" style="color:#eef0f3">0x7ee42abc…0276</span></div>
+<div class="hud"><span class="tl">Readback / On-chain proof</span><span class="tr">07 / 10</span><span class="br">+</span><span class="bar"><i style="width:70%"></i></span></div></section>
+
+<!-- 8 -->
+<section class="s light"><div class="cols" style="grid-template-columns:repeat(4,1fr)">
+<div class="col"><div class="stat">15/15</div><p style="font-size:28px;margin-top:18px;color:rgba(13,17,16,.66)">spoken intents understood, three voices, live API</p></div>
+<div class="col"><div class="stat">15/15</div><p style="font-size:28px;margin-top:18px;color:rgba(13,17,16,.66)">verdicts spoken word for word, checked on every readback</p></div>
+<div class="col"><div class="stat">24/24</div><p style="font-size:28px;margin-top:18px;color:rgba(13,17,16,.66)">guard tests on real Safe v1.3.0 and v1.4.1, Base fork</p></div>
+<div class="col"><div class="stat">1.9s</div><p style="font-size:28px;margin-top:18px;color:rgba(13,17,16,.66)">end of speech to verdict, real browser. Safe txs 2.9–3.4s</p></div></div>
+<div class="hud"><span class="tl">Readback / Measured, not claimed</span><span class="tr">08 / 10</span><span class="br">+</span><span class="bar"><i style="width:80%"></i></span></div></section>
+
+<!-- 9 -->
+<section class="s"><div class="center"><div class="lbl">What measuring caught</div><h2 style="margin:26px 0 40px;font-size:84px">We were wrong, then we measured.</h2>
+<table><tr><td class="stop mono" style="width:260px;font-size:44px">100%</td><td>false positives from our first “always block DELEGATECALL” rule on 81 real Base Safe txs. All went to Safe’s own MultiSend. Now unpacked: 77/77 real batches decode.</td></tr>
+<tr><td class="amber mono" style="font-size:44px">38.7%</td><td>of active Safes sent only transactions an open decoder could read. For the rest: “I can’t read this. Don’t sign something nobody can read.”</td></tr>
+<tr><td class="go mono" style="font-size:44px">12ms</td><td>notary latency, down from 2,187 ms, by fetching chain facts while you’re still speaking.</td></tr></table></div>
+<div class="hud"><span class="tl">Readback / Lessons</span><span class="tr">09 / 10</span><span class="br">+</span><span class="bar"><i style="width:90%"></i></span></div></section>
+
+<!-- 10 -->
+<section class="s" style="background:#0b100e"><div class="center" style="align-items:center;text-align:center">
+<h1 style="font-size:230px;color:#e9ece6">Readback</h1><div style="width:1100px;height:1px;background:rgba(255,255,255,.14);margin:34px 0"></div>
+<div class="mono" style="font-size:36px;color:#a7adb7">readback-phi.vercel.app · github.com/Nuel-osas/readback</div>
+<p class="p" style="margin-top:40px;max-width:1300px;text-align:center">Next: v0.2 relays audio through the notary so it hears the signer itself, closing the one trust gap v0.1 states plainly. Then an audited guard and a wallet SDK.</p></div>
+<div class="hud"><span class="tl">Readback / v0.1</span><span class="tr">10 / 10</span><span class="br">+</span><span class="bar"><i style="width:100%"></i></span></div></section>
+</body></html>
