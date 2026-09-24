@@ -13,7 +13,7 @@
  * rules       keccak256 of the rules version that produced the match
  * expiry      unix seconds; attestations are meant to be used within minutes
  */
-import { keccak256, toBytes } from 'viem';
+import { encodeAbiParameters, getAddress, keccak256, toBytes, concatHex, numberToHex, size } from 'viem';
 import { VERSION } from './rules.js';
 
 export const ATTESTATION_TYPES = {
@@ -26,7 +26,7 @@ export const ATTESTATION_TYPES = {
   ],
 };
 
-export const attestationDomain = (chainId, guard) => ({ name: 'ReadbackGuard', version: '1', chainId, verifyingContract: guard });
+export const attestationDomain = (chainId, guard) => ({ name: 'ReadbackGuard', version: '1', chainId, verifyingContract: getAddress(guard.toLowerCase()) });
 
 export const RULES_ID = keccak256(toBytes(VERSION));
 
@@ -41,5 +41,25 @@ export const intentHash = (intent) => keccak256(toBytes(canonical(intent)));
 
 /** The message a notary signs. */
 export function attestation({ safe, safeTxHash, intent, expiry }) {
-  return { safe, safeTxHash, intentHash: intentHash(intent), rules: RULES_ID, expiry: BigInt(expiry) };
+  return { safe: getAddress(safe.toLowerCase()), safeTxHash, intentHash: intentHash(intent), rules: RULES_ID, expiry: BigInt(expiry) };
+}
+
+/**
+ * The bytes a Safe transaction carries at the end of its `signatures` so ReadbackGuard can
+ * verify it: abi.encode(intentHash, rules, expiry, signature) followed by its length as a
+ * 32-byte word (Fiducia's cosigner transport).
+ */
+export function encodeAttestation({ intentHash: ih, rules = RULES_ID, expiry, signature }) {
+  const blob = encodeAbiParameters(
+    [{ type: 'bytes32' }, { type: 'bytes32' }, { type: 'uint64' }, { type: 'bytes' }],
+    [ih, rules, BigInt(expiry), signature],
+  );
+  return concatHex([blob, numberToHex(size(blob), { size: 32 })]);
+}
+
+/** Sign an attestation with a viem account. Returns the bytes to append to Safe signatures. */
+export async function signAttestation(account, { chainId, guard, safe, safeTxHash, intent, expiry }) {
+  const message = attestation({ safe, safeTxHash, intent, expiry });
+  const signature = await account.signTypedData({ domain: attestationDomain(chainId, guard), types: ATTESTATION_TYPES, primaryType: 'Readback', message });
+  return { message, signature, bytes: encodeAttestation({ intentHash: message.intentHash, rules: message.rules, expiry, signature }) };
 }
