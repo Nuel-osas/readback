@@ -97,6 +97,7 @@ so the notary hears the signer itself.
 | Item | Cost |
 |---|---|
 | Voice Agent API | $4.50/hr, ~15 s per readback → **~$0.019 per signature** |
+| LLM Gateway | not available on this account tier (measured: "no access to this model"). Not needed: tool calling does intent extraction. |
 | Notary compute, Blockscout, RPC | free tier |
 | Ceiling | **< $0.02 per readback** |
 
@@ -109,8 +110,9 @@ so the notary hears the signer itself.
 | M3 fork test on Base: Bybit-shape reverts, match executes, replay fails | pending |
 | M4-7730 ERC-7730 coverage of inner human-shaped calls | 2.8% naive, **11.2%** (20/179) with proxy→implementation resolution; 0/375 outer Safe calls. Decision: typed decoders primary for attack primitives, ERC-7730 as the breadth layer. |
 | M2b real MultiSend delegatecalls decoded without false block after fix | **77/77**, kept as test fixtures |
-| M5 intent extraction accuracy over a spoken test set | pending, needs key |
-| M6 end-of-speech → verdict latency, target < 2 s p50 | pending, needs key |
+| M5 intent extraction, 15 synthesized utterances, 3 speakers, live Voice Agent API | run 1: 12/15. Two real schema gaps ("buy X with Y" direction; threshold number) fixed in the schema descriptions. Run 2: **15/15** (one scorer expectation corrected: "dollars" is what was said). |
+| M6 end-of-speech → verdict audio | median **2.5 s** to intent (turn detection + tool-call decision inside the API) + **0.66 s** to first verdict audio. **~3.2 s total; misses the 2 s target.** Our rules add ~0.1 s. Comparable to a hardware-wallet confirmation. |
+| M7 verdict spoken verbatim (paraphrase risk) | **15/15 + 15/15** across both runs. Enforcement still never depends on it. |
 
 ## 10b. What the unreadable share means
 

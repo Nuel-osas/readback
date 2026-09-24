@@ -1,0 +1,135 @@
+[
+ {
+  "id": "u01",
+  "text": "Swap a hundred USDC for ETH.",
+  "expect": {
+   "action": "swap",
+   "amount": 100,
+   "token": "usdc",
+   "token_out": "eth"
+  }
+ },
+ {
+  "id": "u02",
+  "text": "I'm swapping one hundred U S D C into ether.",
+  "expect": {
+   "action": "swap",
+   "amount": 100,
+   "token": "usdc",
+   "token_out": "eth"
+  }
+ },
+ {
+  "id": "u03",
+  "text": "Claim my airdrop.",
+  "expect": {
+   "action": "claim"
+  }
+ },
+ {
+  "id": "u04",
+  "text": "Just claiming the free tokens they gave me.",
+  "expect": {
+   "action": "claim"
+  }
+ },
+ {
+  "id": "u05",
+  "text": "Send one ETH to my cold wallet.",
+  "expect": {
+   "action": "send",
+   "amount": 1,
+   "token": "eth",
+   "recipient": "my cold wallet"
+  }
+ },
+ {
+  "id": "u06",
+  "text": "Move half an ether over to Alice.",
+  "expect": {
+   "action": "send",
+   "amount": 0.5,
+   "token": "eth",
+   "recipient": "alice"
+  }
+ },
+ {
+  "id": "u07",
+  "text": "Mint the free NFT.",
+  "expect": {
+   "action": "mint"
+  }
+ },
+ {
+  "id": "u08",
+  "text": "Approve fifty USDC for Uniswap.",
+  "expect": {
+   "action": "approve",
+   "amount": 50,
+   "token": "usdc",
+   "recipient": "uniswap"
+  }
+ },
+ {
+  "id": "u09",
+  "text": "Buy some Nvidia with two hundred dollars.",
+  "expect": {
+   "action": "buy",
+   "amount": 200,
+   "token_out": "nvidia",
+   "token": "dollars"
+  }
+ },
+ {
+  "id": "u10",
+  "text": "Add Bob as an owner of the Safe.",
+  "expect": {
+   "action": "add_owner",
+   "recipient": "bob"
+  }
+ },
+ {
+  "id": "u11",
+  "text": "Pay the designer two thousand five hundred USDC.",
+  "expect": {
+   "action": "pay",
+   "amount": 2500,
+   "token": "usdc",
+   "recipient": "the designer"
+  }
+ },
+ {
+  "id": "u12",
+  "text": "Sell point two cbBTC for USDC.",
+  "expect": {
+   "action": "sell",
+   "amount": 0.2,
+   "token": "cbbtc",
+   "token_out": "usdc"
+  }
+ },
+ {
+  "id": "u13",
+  "text": "Um, I think it's just logging in to the site.",
+  "expect": {
+   "action": "login"
+  }
+ },
+ {
+  "id": "u14",
+  "text": "Deposit a thousand DAI.",
+  "expect": {
+   "action": "deposit",
+   "amount": 1000,
+   "token": "dai"
+  }
+ },
+ {
+  "id": "u15",
+  "text": "Change the threshold to two signatures.",
+  "expect": {
+   "action": "change_threshold",
+   "amount": 2
+  }
+ }
+]

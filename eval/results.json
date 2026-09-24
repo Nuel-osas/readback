@@ -1,0 +1,259 @@
+[
+  {
+    "id": "u01",
+    "text": "Swap a hundred USDC for ETH.",
+    "heard": "Swap 100 USDC for ETH.",
+    "args": {
+      "action": "swap",
+      "amount": 100,
+      "token": "USDC",
+      "token_out": "ETH"
+    },
+    "agentSaid": "Stop. This test sentence must be spoken exactly as written.",
+    "verbatim": true,
+    "msToTool": 2224,
+    "msToVoice": 703,
+    "ok": true,
+    "why": ""
+  },
+  {
+    "id": "u02",
+    "text": "I'm swapping one hundred U S D C into ether.",
+    "heard": "I'm swapping 100 USDC into Ether.",
+    "args": {
+      "action": "swap",
+      "amount": 100,
+      "token": "USDC",
+      "token_out": "Ether"
+    },
+    "agentSaid": "Stop. This test sentence must be spoken exactly as written.",
+    "verbatim": true,
+    "msToTool": 3274,
+    "msToVoice": 662,
+    "ok": true,
+    "why": ""
+  },
+  {
+    "id": "u03",
+    "text": "Claim my airdrop.",
+    "heard": "Claim my airdrop.",
+    "args": {
+      "action": "claim",
+      "amount": null,
+      "recipient": null,
+      "token": null,
+      "token_out": null
+    },
+    "agentSaid": "Stop. This test sentence must be spoken exactly as written.",
+    "verbatim": true,
+    "msToTool": 2157,
+    "msToVoice": 656,
+    "ok": true,
+    "why": ""
+  },
+  {
+    "id": "u04",
+    "text": "Just claiming the free tokens they gave me.",
+    "heard": "Just claiming the free tokens they gave me.",
+    "args": {
+      "action": "claim",
+      "amount": null,
+      "recipient": null,
+      "token": null,
+      "token_out": null
+    },
+    "agentSaid": "Stop. This test sentence must be spoken exactly as written.",
+    "verbatim": true,
+    "msToTool": 2292,
+    "msToVoice": 642,
+    "ok": true,
+    "why": ""
+  },
+  {
+    "id": "u05",
+    "text": "Send one ETH to my cold wallet.",
+    "heard": "Send 1 ETH to my cold wallet.",
+    "args": {
+      "action": "send",
+      "amount": 1,
+      "recipient": "my cold wallet",
+      "token": "ETH"
+    },
+    "agentSaid": "Stop. This test sentence must be spoken exactly as written.",
+    "verbatim": true,
+    "msToTool": 2110,
+    "msToVoice": 646,
+    "ok": true,
+    "why": ""
+  },
+  {
+    "id": "u06",
+    "text": "Move half an ether over to Alice.",
+    "heard": "Move half an Ether over to Alice.",
+    "args": {
+      "action": "send",
+      "amount": 0.5,
+      "recipient": "Alice",
+      "token": "Ether"
+    },
+    "agentSaid": "Stop. This test sentence must be spoken exactly as written.",
+    "verbatim": true,
+    "msToTool": 2545,
+    "msToVoice": 701,
+    "ok": true,
+    "why": ""
+  },
+  {
+    "id": "u07",
+    "text": "Mint the free NFT.",
+    "heard": "Mint the free NFT.",
+    "args": {
+      "action": "mint",
+      "amount": null,
+      "recipient": null,
+      "token": null,
+      "token_out": null
+    },
+    "agentSaid": "Stop. This test sentence must be spoken exactly as written.",
+    "verbatim": true,
+    "msToTool": 3392,
+    "msToVoice": 691,
+    "ok": true,
+    "why": ""
+  },
+  {
+    "id": "u08",
+    "text": "Approve fifty USDC for Uniswap.",
+    "heard": "Approve 50 USDC for Uniswap.",
+    "args": {
+      "action": "approve",
+      "amount": 50,
+      "recipient": "Uniswap",
+      "token": "USDC"
+    },
+    "agentSaid": "Stop. This test sentence must be spoken exactly as written.",
+    "verbatim": true,
+    "msToTool": 3357,
+    "msToVoice": 654,
+    "ok": true,
+    "why": ""
+  },
+  {
+    "id": "u09",
+    "text": "Buy some Nvidia with two hundred dollars.",
+    "heard": "Buy some Nvidia with $200.",
+    "args": {
+      "action": "buy",
+      "amount": 200,
+      "token": "dollars",
+      "token_out": "Nvidia"
+    },
+    "agentSaid": "Stop. This test sentence must be spoken exactly as written.",
+    "verbatim": true,
+    "msToTool": 3864,
+    "msToVoice": 697,
+    "ok": false,
+    "why": "invented token: dollars"
+  },
+  {
+    "id": "u10",
+    "text": "Add Bob as an owner of the Safe.",
+    "heard": "Add Bob as an owner of the safe.",
+    "args": {
+      "action": "add_owner",
+      "recipient": "Bob"
+    },
+    "agentSaid": "Stop. This test sentence must be spoken exactly as written.",
+    "verbatim": true,
+    "msToTool": 2426,
+    "msToVoice": 695,
+    "ok": true,
+    "why": ""
+  },
+  {
+    "id": "u11",
+    "text": "Pay the designer two thousand five hundred USDC.",
+    "heard": "Pay the designer 2,500 USDC.",
+    "args": {
+      "action": "pay",
+      "amount": 2500,
+      "recipient": "the designer",
+      "token": "USDC"
+    },
+    "agentSaid": "Stop. This test sentence must be spoken exactly as written.",
+    "verbatim": true,
+    "msToTool": 3946,
+    "msToVoice": 656,
+    "ok": true,
+    "why": ""
+  },
+  {
+    "id": "u12",
+    "text": "Sell point two cbBTC for USDC.",
+    "heard": "Sell 0.2 cBBTC for USDC.",
+    "args": {
+      "action": "sell",
+      "amount": 0.2,
+      "token": "cBBTC",
+      "token_out": "USDC"
+    },
+    "agentSaid": "Stop. This test sentence must be spoken exactly as written.",
+    "verbatim": true,
+    "msToTool": 3217,
+    "msToVoice": 715,
+    "ok": true,
+    "why": ""
+  },
+  {
+    "id": "u13",
+    "text": "Um, I think it's just logging in to the site.",
+    "heard": "Um, I think it's just logging into the site.",
+    "args": {
+      "action": "login",
+      "amount": null,
+      "recipient": null,
+      "token": null,
+      "token_out": null
+    },
+    "agentSaid": "Stop. This test sentence must be spoken exactly as written.",
+    "verbatim": true,
+    "msToTool": 2379,
+    "msToVoice": 653,
+    "ok": true,
+    "why": ""
+  },
+  {
+    "id": "u14",
+    "text": "Deposit a thousand DAI.",
+    "heard": "Deposit 1,000 DAI.",
+    "args": {
+      "action": "deposit",
+      "amount": 1000,
+      "token": "DAI"
+    },
+    "agentSaid": "Stop. This test sentence must be spoken exactly as written.",
+    "verbatim": true,
+    "msToTool": 3904,
+    "msToVoice": 659,
+    "ok": true,
+    "why": ""
+  },
+  {
+    "id": "u15",
+    "text": "Change the threshold to two signatures.",
+    "heard": "Change the threshold to 2 signatures.",
+    "args": {
+      "action": "change_threshold",
+      "amount": 2,
+      "recipient": null,
+      "token": null,
+      "token_out": null
+    },
+    "agentSaid": "Stop. This test sentence must be spoken exactly as written.",
+    "verbatim": true,
+    "msToTool": 2380,
+    "msToVoice": 688,
+    "ok": true,
+    "why": ""
+  }
+]
