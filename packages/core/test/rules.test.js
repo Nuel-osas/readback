@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { encodeFunctionData, parseAbi, maxUint256, parseUnits, parseEther } from 'viem';
-import { decodeTx, UNLIMITED } from '../lib/decode.js';
-import { readback } from '../lib/compare.js';
+import { decodeTx, UNLIMITED } from '../src/decode.js';
+import { readback } from '../src/rules.js';
 
 const ME = '0x1111111111111111111111111111111111111111';
 const THIEF = '0xbadbadbadbadbadbadbadbadbadbadbadbadbad0';

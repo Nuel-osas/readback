@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://readback.dev/schema/intent/0.1.json",
+  "title": "Readback intent v0.1",
+  "description": "What a signer said they are about to sign, recorded faithfully. Never what the transaction does.",
+  "type": "object",
+  "properties": {
+    "action": { "type": "string", "enum": ["swap", "buy", "sell", "trade", "send", "pay", "transfer", "deposit", "approve", "claim", "mint", "receive", "airdrop", "login", "sign_in", "verify", "add_owner", "remove_owner", "replace_owner", "change_threshold", "enable_module", "disable_module", "set_guard", "set_fallback_handler", "other"] },
+    "amount": { "type": ["number", "null"], "description": "The number said, as a plain number. \"a hundred\" is 100, \"half\" is 0.5. Null if none said." },
+    "token": { "type": ["string", "null"], "description": "The asset being spent or sent, as a ticker or name. Null if none said." },
+    "token_out": { "type": ["string", "null"], "description": "For swaps and buys, the asset wanted in return. Null otherwise." },
+    "recipient": { "type": ["string", "null"], "description": "Who receives it, or for Safe administration the owner, module or guard involved: in the signer's words, or a 0x address if one was read out. \"me\" for themselves. Null if not said." },
+    "confirm": { "type": "boolean", "description": "True only when the signer is plainly confirming, not describing a transaction." }
+  },
+  "required": ["action", "amount", "token", "token_out", "recipient", "confirm"],
+  "additionalProperties": false
+}

@@ -1,0 +1,9 @@
+{
+  "name": "@readback/provider",
+  "version": "0.1.0",
+  "description": "Wrap any EIP-1193 provider so every eth_sendTransaction is read back first.",
+  "type": "module",
+  "license": "MIT",
+  "exports": { ".": "./src/index.js" },
+  "files": ["src"]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "@readback/core",
+  "version": "0.1.0",
+  "description": "Readback: compare what a signer says they are signing with what the transaction does.",
+  "type": "module",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.js",
+    "./schema/intent.json": "./schema/intent.json"
+  },
+  "files": ["src", "schema"],
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "vectors": "node test/run-vectors.js ../../vectors"
+  },
+  "peerDependencies": { "viem": "^2.0.0" }
+}
