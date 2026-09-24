@@ -1,74 +1,81 @@
 # Readback
 
-**Say what you think you're signing.** Readback listens, decodes what the transaction really does, and stops it when the two don't match.
+**Say what you think you're signing.** Readback is a voice-verified signing protocol. It hears what you mean to sign, decodes what the transaction really does, and stops it when the two don't match. On a Safe, a guard contract refuses any transaction that wasn't read back, so a compromised screen can't get a signature through.
 
-In February 2025 Bybit lost $1.5 billion. Its signers approved what their screens showed as a routine transfer. The transaction was a Safe `DELEGATECALL` that handed the wallet to an attacker. Every signer looked at it. Nobody could read it.
+**Live:** https://readback-phi.vercel.app · **dApp:** https://readback-phi.vercel.app/app
 
-Pilots solved this problem decades ago. Every clearance from the tower is read back aloud, and the controller listens for the mismatch. It works because intent and instruction travel on separate channels. Readback puts that loop in front of a wallet signature.
+In February 2025 Bybit lost $1.46B. Its signers were shown a routine transfer; the hardware wallets signed a Safe `DELEGATECALL` that replaced the Safe's implementation. Every check happened on the channel the attacker controlled. Aviation solved this decades ago: every clearance is read back aloud, and the controller listens for the mismatch. Readback puts that loop in front of a signature.
 
-## What happens
+## Proof on a public chain
 
-| You click | You say | Readback says |
+Base Sepolia, run by [`scripts/evidence.mjs`](scripts/evidence.mjs) against two identical 2-of-2 Safes, one guarded and one not:
+
+| | Guarded Safe | Unguarded control |
 |---|---|---|
-| "Swap 100 USDC for ETH" on a Uniswap page | "swap a hundred USDC for ETH" | *That matches. It will swap 100 USDC for at least 0.02 WETH through the Uniswap swap router, paid to you. Say confirm to sign.* |
-| "Claim your 500 BASE airdrop" | "claim my airdrop" | *Stop. A claim should give you something. This lets a wallet address with no history at all take your USDC, all of it, forever.* |
-| "Move 1 ETH to your cold wallet" on a Safe | "send one ETH to my cold wallet" | *Stop. This doesn't send anything. It hands control of your Safe to an unverified contract, deployed 1 hour ago. That is how Bybit lost one and a half billion dollars.* |
+| Honest transfer | notary attested, [executed](https://sepolia.basescan.org/tx/0x1ecb75a4b62be2006ea94168e2232ec0a371ed3e6eb2fa72b05ae5f23ab42c69) | |
+| Bybit-shaped `DELEGATECALL`, both owners signed | notary refused, **[reverted](https://sepolia.basescan.org/tx/0x8e3c182b7ae8eff58907db8cd6c35699049413e6f5c88958384e197f8eed8bd8)** | **[succeeded](https://sepolia.basescan.org/tx/0x7919e8e9d0556cdb54f3045e97d6f1251ffc4d4cc06682d92190ec35fe4dae11)**: implementation replaced |
+| Transfer attested by a **spoken** readback in the browser | [executed](https://sepolia.basescan.org/tx/0x7ee42abc14d896c34d457be959da9bfc0956d8e1d17c657ebcf8c77f51fc0276) | |
 
-Those are the real outputs, from real calldata against real Base mainnet contracts, with every address checked live.
+[ReadbackGuard](https://base-sepolia.blockscout.com/address/0xAA3356D3E0237898a3A613E111625043A1614355?tab=contract) `0xAA3356D3E0237898a3A613E111625043A1614355`, verified source.
 
 ## How it works
 
 ```
- mic ──► AssemblyAI Universal-Streaming ──► transcript ──► AssemblyAI LLM Gateway ──► intent (strict JSON)
-                                                                                          │
- tx  ──► calldata decoder ──► actions ──► Base facts (Blockscout) ─────────────────► deterministic rules ──► verdict ──► voice
+ you speak ──► AssemblyAI Voice Agent API ──► intent (tool call, strict schema)
+                                                   │
+ transaction ──► notary: decode · chain facts · 27 rules ──► verdict ──► spoken back word for word
+                                                   │
+                              match on a Safe ──► EIP-712 attestation ──► ReadbackGuard verifies on-chain
 ```
 
-1. **Hear.** AssemblyAI Universal-Streaming over a WebSocket, 16 kHz PCM from an AudioWorklet. Turn detection decides when you've finished, with extra silence allowed so an amount or an address isn't cut off mid-read. Wallet vocabulary is primed with `keyterms_prompt`, **but never with the tokens in the transaction under review**: priming recognition with what the transaction contains would bias the transcript toward agreeing with it, which is the one thing a readback must never do.
-2. **Understand.** The final transcript goes to the AssemblyAI LLM Gateway with a strict JSON schema: action, amount, asset, recipient, confirm. The model never sees the transaction and never judges it. It only records what you said.
-3. **Compare.** The calldata is decoded into a small vocabulary of actions (transfer, approve, approval for all, swap, delegatecall, unknown). Router multicalls and Safe `execTransaction` are unwrapped recursively, because the dangerous part is usually the part the wallet screen doesn't show. Every address is checked on Base: contract or wallet, verified source, deployment age, history. Then plain rules compare intent with action.
+| Layer | Trusted with | Not trusted with |
+|---|---|---|
+| **Hear**: AssemblyAI Voice Agent API | turning speech into an intent, and speaking the verdict | seeing the transaction, or deciding anything |
+| **Decide**: notary, `@readback/core` | decoding calldata, checking addresses on Base, 27 deterministic rules, signing only matches | |
+| **Enforce**: `ReadbackGuard.sol` | refusing any Safe transaction without an attestation over its exact hash | |
 
-**The model only listens. The rules decide.** Every sentence the agent speaks traces back to one rule in [`lib/compare.js`](lib/compare.js). A safety check you can't read is just one more thing you're trusting blindly.
+Design choices that came out of measuring, not guessing (details in [DESIGN.md](DESIGN.md)):
 
-## What it catches
+- **The model only listens.** The voice agent is never shown the transaction and can't be talked into agreeing with it. Safety is decided by rules a person can read; every finding names its rule ID.
+- **You never see what it does before you say it.** Otherwise you'd just read it aloud and parrot it back.
+- **MultiSend is unpacked, not blocked.** 21.6% of real Safe transactions on Base are `DELEGATECALL`s, all to Safe's own MultiSend. Our first rule would have blocked every one of them (100% false positives on 81 real transactions). Batches are now unpacked and each leg judged: 77/77 real batches decode.
+- **The guard binds the full Safe tx hash.** Safe Research's Fiducia cosigner zeroes the gas fields (leaving the refund path unbound) and permanently allowlists every cosigned `(to, selector, operation)`. ReadbackGuard does neither: one attestation, one exact transaction.
+- **Recovery can't brick a Safe.** Guard exit and notary rotation pass without an attestation, after a public two-day delay.
 
-| Shape | Rule |
+## Measured
+
+| | |
 |---|---|
-| Fake airdrop, fake mint, "connect wallet" that approves | A claim should give you something; this lets someone take something |
-| Unlimited approval to a new, unverified or history-less address | Blocked outright |
-| Safe `DELEGATECALL` (the Bybit shape) | Always blocked, whatever you said |
-| Swap whose output goes to someone else | Blocked |
-| Amount, asset or recipient different from what you said | Blocked, and the difference is read out |
-| Calldata nothing can decode | Blocked: don't sign what nobody can read |
-| Unlimited approval to a known router, zero slippage protection | Allowed, with a spoken warning |
+| Spoken intents extracted correctly (live API, 3 voices) | **15/15** |
+| Verdicts spoken word for word | **15/15**, and checked live in the app on every readback |
+| Guard tests on real Safe v1.3.0 and v1.4.1 (Base mainnet fork) | **24/24**, plus a JS↔Solidity attestation vector |
+| End of speech → verdict, real browser | **1.9 s** wallet txs · **2.9–3.4 s** Safe txs |
+| Active Safes on Base fully readable by an open decoder | **38.7%** (29/75). For the rest: *"I can't read this. Don't sign something nobody can read."* |
+| Cost per readback | **~$0.02** |
 
-## One line to integrate
+## Repository
 
-Readback wraps any EIP-1193 provider. Nothing else about the provider changes:
-
-```js
-const provider = withReadback(window.ethereum, review);
-```
-
-If the readback blocks, the dapp gets the standard `4001 user rejected` error, exactly as if the user had clicked Reject.
-
-## Run it
+| Path | What |
+|---|---|
+| `packages/core` | decoder, rule catalogue, verdicts, EIP-712 attestations. 25 tests, including 77 real Base transactions as fixtures |
+| `packages/provider` | `withReadback(provider, review)`: wrap any EIP-1193 provider |
+| `contracts` | `ReadbackGuard.sol` and Foundry tests on a Base fork |
+| `apps/web` | landing page, dApp, notary API |
+| `eval` | live Voice Agent eval and real-browser end-to-end tests with recorded speech |
+| `scripts` | on-chain evidence runs |
 
 ```bash
 npm install
-cp .env.example .env.local     # ASSEMBLYAI_API_KEY, and optionally ELEVENLABS_API_KEY for the voice
-npm test                       # the rules, no keys needed
+npm test                                  # rules and decoder, no keys
+cd contracts && forge test                # guard, on a Base mainnet fork
+cp apps/web/.env.example apps/web/.env.local   # ASSEMBLYAI_API_KEY, NOTARY_PRIVATE_KEY, READBACK_GUARD_ADDRESS
 npm run dev
 ```
 
-Without an ElevenLabs key the agent speaks with the browser's own voice. Without a wallet, Readback runs the whole loop and sends nothing.
+## Honest limits
 
-## Tests
+- In v0.1 the notary accepts the transcript from the browser. A fully compromised client could forge speech that matches a malicious transaction. The on-chain guard still refuses anything the notary's rules reject (like the Bybit shape) regardless of what was said. v0.2 relays audio through the notary so it hears the signer itself.
+- Modules already enabled on a Safe bypass transaction guards in Safe v1.3/1.4. Readback refuses to attest `enableModule` unless it was said and the module is verified.
+- The guard is unaudited. The demo runs on Base Sepolia.
 
-`npm test` runs 14 cases against real encoded calldata: the honest swap, a multicall-wrapped swap, the airdrop approval, the Bybit delegatecall, a Safe CALL unwrapped to its inner transfer, a tenfold amount, a swap paid to someone else, zero slippage, an unlimited approval to a known router, a malicious setApprovalForAll, unreadable calldata, a correct address read aloud, a wrong one, and a check that nothing hexadecimal is ever spoken.
-
-## Notes
-
-The addresses standing in for bad actors in the demo are real on-chain states picked for their properties: one with no history, one unverified contract freshly deployed on Base. Readback describes them only from what the chain reports and makes no claim about who controls them.
-
-Built for the AssemblyAI Voice Agent Hackathon, September 2026. MIT licensed.
+Photos: Andrés Dallimonti and Benjamin Chambon, Unsplash. Built for the AssemblyAI Voice Agent Hackathon, September 2026. MIT.

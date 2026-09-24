@@ -4,7 +4,7 @@ import './globals.css';
 const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--mono' });
 
 export const metadata = {
-  metadataBase: new URL('https://readback.vercel.app'),
+  metadataBase: new URL('https://readback-phi.vercel.app'),
   title: 'Readback: say what you think you are signing',
   description: 'A voice-verified signing protocol. Readback hears what you think you are signing, decodes what the transaction really does, and a Safe guard refuses anything that does not match.',
   openGraph: { title: 'Readback', description: 'Say what you think you are signing.', images: ['/img/cockpit-1200.webp'] },

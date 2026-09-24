@@ -1,0 +1,9 @@
+contracts/lib
+contracts/out
+contracts/cache
+contracts/broadcast
+eval/audio
+node_modules
+**/node_modules
+.env
+**/.env.local
