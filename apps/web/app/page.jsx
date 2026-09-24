@@ -49,6 +49,7 @@ export default function Landing() {
               <span><i>15/15</i> verdicts spoken word for word</span>
               <span><i>77/77</i> real MultiSend batches decoded</span>
               <span><i>24/24</i> guard tests on real Safe v1.3.0 and v1.4.1</span>
+              <span><i>1.9s</i> from your last word to the verdict</span>
               <span><i>~$0.02</i> per readback</span>
             </div>
           ))}
@@ -160,7 +161,7 @@ export default function Landing() {
             <div className="stat"><div className="num amber">21.6%</div><div className="what">of real Safe transactions on Base are DELEGATECALLs</div><div className="src">375 txs, 75 Safes</div></div>
             <div className="stat"><div className="num stop">100%</div><div className="what">false positives from our first “always block DELEGATECALL” rule. Measured, then fixed.</div><div className="src">81/81 went to Safe’s own MultiSend</div></div>
             <div className="stat"><div className="num amber">38.7%</div><div className="what">of active Safes sent only transactions an open decoder could fully read</div><div className="src">29/75 · ERC-7730 adds 11.2% of calls</div></div>
-            <div className="stat"><div className="num amber">3.2s</div><div className="what">from the end of your sentence to the verdict being spoken</div><div className="src">median · target was 2s, missed</div></div>
+            <div className="stat"><div className="num go">1.9s</div><div className="what">from the end of your sentence to the verdict, in a real browser. Safe transactions: 2.9 to 3.4s.</div><div className="src">notary 2,187ms → 12ms after prefetching</div></div>
           </div>
           <p className="honest reveal">The misses are on the page on purpose. Most multisigs routinely sign calldata no open tool can explain. For those, Readback’s answer is the only honest one: <i>“I can’t read this. Don’t sign something nobody can read.”</i></p>
         </div>

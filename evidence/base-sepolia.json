@@ -9,5 +9,7 @@
   "Bybit shape, guarded Safe": "reverted https://sepolia.basescan.org/tx/0x8e3c182b7ae8eff58907db8cd6c35699049413e6f5c88958384e197f8eed8bd8",
   "guarded implementation after": "0x29fcB43b46531BcA003ddC8FCB67FFE91900C762",
   "Bybit shape, control Safe": "success https://sepolia.basescan.org/tx/0x7919e8e9d0556cdb54f3045e97d6f1251ffc4d4cc06682d92190ec35fe4dae11",
-  "control implementation after": "0x60b70BC2E774d7A781138009A28B2917893dc98A"
+  "control implementation after": "0x60b70BC2E774d7A781138009A28B2917893dc98A",
+  "voice-attested transfer, guarded Safe": "success https://sepolia.basescan.org/tx/0x7ee42abc14d896c34d457be959da9bfc0956d8e1d17c657ebcf8c77f51fc0276",
+  "voice session (browser, spoken)": "heard \"“Send 0.0001 ETH to my cold wallet.”\", then \"Confirm.\"; notary MATCH; attestation over 0x6ce3056e5334c8a9b17f777441fba1c5e9419333d887aaddf7fca460bbc0c61a"
 }

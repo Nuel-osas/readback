@@ -111,7 +111,10 @@ so the notary hears the signer itself.
 | M4-7730 ERC-7730 coverage of inner human-shaped calls | 2.8% naive, **11.2%** (20/179) with proxy→implementation resolution; 0/375 outer Safe calls. Decision: typed decoders primary for attack primitives, ERC-7730 as the breadth layer. |
 | M2b real MultiSend delegatecalls decoded without false block after fix | **77/77**, kept as test fixtures |
 | M5 intent extraction, 15 synthesized utterances, 3 speakers, live Voice Agent API | run 1: 12/15. Two real schema gaps ("buy X with Y" direction; threshold number) fixed in the schema descriptions. Run 2: **15/15** (one scorer expectation corrected: "dollars" is what was said). |
-| M6 end-of-speech → verdict audio | median **2.5 s** to intent (turn detection + tool-call decision inside the API) + **0.66 s** to first verdict audio. **~3.2 s total; misses the 2 s target.** Our rules add ~0.1 s. Comparable to a hardware-wallet confirmation. |
+| M6 end-of-speech → verdict audio | median **2.5 s** to intent (turn detection + tool-call decision inside the API) + **0.66 s** to first verdict audio. **~3.2 s total in the headless API run; see M6b for the browser, where the target is met for wallet transactions.** Our rules add ~0.1 s. Comparable to a hardware-wallet confirmation. |
+| M6b end of speech → verdict on screen, in a real browser, full app | **1.86–1.96 s** for wallet transactions after prefetching chain facts while the signer speaks (notary 2,187 ms → 10–14 ms). **2.9–3.4 s** for Safe transactions: the notary reads the Safe's nonce and hash from chain on every request, deliberately uncached. |
+| M8 full loop in a real browser (recorded speech in, cued turns) | airdrop → STOP RB-004; swap → MATCH → "confirm" → released; Safe honest send → MATCH → attestation; Bybit shape → STOP RB-002, no attestation. All verdicts spoken word for word. |
+| M9 voice-produced attestation executed on-chain | a spoken readback's attestation executed a Safe transaction through ReadbackGuard on Base Sepolia: `0x7ee42abc…0276` |
 | M7 verdict spoken verbatim (paraphrase risk) | **15/15 + 15/15** across both runs. Enforcement still never depends on it. |
 
 ## 10b. What the unreadable share means

@@ -17,10 +17,24 @@ async function one(api, address) {
   return f;
 }
 
+// Facts change slowly (a contract gets verified; a wallet gets its first transaction), so a
+// short-lived cache is safe. It exists for one reason: the client asks for facts the moment
+// Sign is pressed, while the signer is still speaking, so the verdict does not wait on
+// Blockscout. Five minutes; per server instance.
+const TTL = 5 * 60_000;
+const cache = new Map();
+
 export async function factsFor(chainId, addresses) {
   const api = CHAINS[chainId]?.blockscout;
   if (!api) return {};
   const uniq = [...new Set(addresses.map((x) => x.toLowerCase()))].filter((x) => /^0x[0-9a-f]{40}$/.test(x)).slice(0, 16);
-  const rows = await Promise.all(uniq.map(async (x) => [x, await one(api, x).catch(() => null)]));
+  const rows = await Promise.all(uniq.map(async (x) => {
+    const key = `${chainId}:${x}`;
+    const hit = cache.get(key);
+    if (hit && Date.now() - hit.at < TTL) return [x, await hit.value];
+    const value = one(api, x).catch(() => null);
+    cache.set(key, { at: Date.now(), value });
+    return [x, await value];
+  }));
   return Object.fromEntries(rows.filter(([, v]) => v));
 }
