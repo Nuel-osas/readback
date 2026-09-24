@@ -1,0 +1,2 @@
+{ "name": "readback-film", "private": true, "type": "module",
+  "scripts": { "render": "remotion render Readback out/readback-demo.mp4 --log=error" } }

@@ -51,7 +51,7 @@ a{color:inherit;text-decoration:none}
 @media (max-width:980px){.hero__body{grid-template-columns:1fr}}
 .eyebrow{display:inline-flex;align-items:center;gap:10px;font:500 12.5px var(--mono-f);letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2)}
 .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 12px var(--amber)}
-.hero h1{font:600 clamp(44px,6.2vw,94px)/.95 var(--display);letter-spacing:-.035em;margin:22px 0 24px;max-width:12.5ch;text-wrap:balance}
+.hero h1{font:600 clamp(44px,6.2vw,94px)/.95 var(--display);letter-spacing:-.028em;word-spacing:.1em;margin:22px 0 24px;max-width:12.5ch;text-wrap:balance}
 .hero h1 em{font-style:normal;background:var(--horizon);-webkit-background-clip:text;background-clip:text;color:transparent}
 .hero__sub{font-size:clamp(17px,1.4vw,19px);color:#c9ced6;max-width:50ch;text-shadow:0 1px 18px rgba(0,0,0,.6)}
 .hero__cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px}
@@ -86,7 +86,7 @@ a{color:inherit;text-decoration:none}
 .sec{padding:clamp(88px,12vw,160px) 0;position:relative}
 .sec__label{font:500 12.5px var(--mono-f);letter-spacing:.16em;text-transform:uppercase;color:var(--amber);display:flex;align-items:center;gap:12px}
 .sec__label::before{content:"";width:28px;height:1px;background:var(--amber)}
-.sec h2{font:600 clamp(36px,5.2vw,72px)/1 var(--display);letter-spacing:-.03em;margin:20px 0 24px;max-width:16ch}
+.sec h2{font:600 clamp(36px,5.2vw,72px)/1 var(--display);letter-spacing:-.025em;word-spacing:.08em;margin:20px 0 24px;max-width:16ch}
 .lead{font-size:clamp(18px,1.6vw,21px);color:var(--fg-2);max-width:58ch}
 .lead b{color:var(--fg);font-weight:500}
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
@@ -164,7 +164,7 @@ a{color:inherit;text-decoration:none}
 /* cta + footer */
 .cta{text-align:center;padding:clamp(100px,14vw,180px) 0;position:relative;overflow:hidden}
 .cta::before{content:"";position:absolute;left:50%;top:50%;width:1100px;height:420px;transform:translate(-50%,-50%);background:var(--horizon);filter:blur(120px);opacity:.18;z-index:-1}
-.cta h2{font:600 clamp(44px,7vw,104px)/.95 var(--display);letter-spacing:-.04em;max-width:14ch;margin:0 auto 34px}
+.cta h2{font:600 clamp(44px,7vw,104px)/.95 var(--display);letter-spacing:-.03em;word-spacing:.08em;max-width:14ch;margin:0 auto 34px}
 .foot{border-top:1px solid var(--line);padding:34px 0 44px;display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;font-size:13.5px;color:var(--fg-3)}
 .foot a:hover{color:var(--fg)}
 .foot .credits{font-size:12.5px;max-width:60ch}
@@ -188,7 +188,7 @@ a{color:inherit;text-decoration:none}
 .scene:disabled{opacity:.5;cursor:default}
 .scene__top{display:flex;justify-content:space-between;font-size:12px;color:var(--fg-3)}
 .kind{font:600 10.5px var(--mono-f);letter-spacing:.1em;text-transform:uppercase;color:var(--fg-2);border:1px solid var(--line-2);border-radius:6px;padding:2px 6px}
-.scene__claim{font:600 19px/1.25 var(--display);letter-spacing:-.01em;margin:8px 0 2px;color:var(--fg)}
+.scene__claim{font:600 19px/1.25 var(--display);letter-spacing:-.005em;word-spacing:.06em;margin:8px 0 2px;color:var(--fg)}
 .scene__note{font-size:12.5px;color:var(--stop)}
 .scene__foot{display:flex;justify-content:space-between;align-items:center;margin-top:12px;gap:10px}
 .signbtn{flex:none;height:32px;padding:0 16px;border-radius:999px;background:var(--fg);color:var(--ink);font:600 13px var(--body);display:inline-flex;align-items:center}
@@ -209,7 +209,7 @@ a{color:inherit;text-decoration:none}
 @keyframes pulse{50%{opacity:.35}}
 .rb__body{padding:4px 22px 24px}
 .readback .signal{height:120px}
-.heard{font:600 clamp(24px,2.6vw,34px)/1.2 var(--display);letter-spacing:-.02em;color:var(--amber);min-height:44px;margin:4px 0 10px}
+.heard{font:600 clamp(24px,2.6vw,34px)/1.2 var(--display);letter-spacing:-.015em;word-spacing:.08em;color:var(--amber);min-height:44px;margin:4px 0 10px}
 .heard .partial{color:rgba(255,181,71,.55)}
 .heard .ph{color:var(--fg-4)}
 .voice{border-left:2px solid var(--fg-3);padding:4px 0 4px 14px;margin:10px 0 16px}
