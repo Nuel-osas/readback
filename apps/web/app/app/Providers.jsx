@@ -2,14 +2,14 @@
 import '@rainbow-me/rainbowkit/styles.css';
 import { RainbowKitProvider, getDefaultConfig, darkTheme } from '@rainbow-me/rainbowkit';
 import { WagmiProvider } from 'wagmi';
-import { base, baseSepolia } from 'wagmi/chains';
+import { arbitrum, arbitrumSepolia, base, baseSepolia } from 'wagmi/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState } from 'react';
 
 const config = getDefaultConfig({
   appName: 'Readback',
   projectId: process.env.NEXT_PUBLIC_WC_PROJECT_ID || 'readback_voice_signing',
-  chains: [base, baseSepolia],
+  chains: [base, baseSepolia, arbitrum, arbitrumSepolia],
   ssr: true,
 });
 

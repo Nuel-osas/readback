@@ -14,7 +14,7 @@
  */
 import { formatUnits } from 'viem';
 import { UNLIMITED } from './decode.js';
-import { NATIVE, known, token, tokenBySpoken } from './tokens.js';
+import { NATIVE, WRAPPED_NATIVE, known, token, tokenBySpoken } from './tokens.js';
 
 export const VERSION = 'readback/0.1';
 
@@ -105,8 +105,8 @@ function tokenMatches(spoken, addr) {
   if (!spoken) return true;
   const t = tokenBySpoken(spoken);
   if (!t) return false;
-  if (t.address === 'native') return addr === 'native' || lc(addr) === '0x4200000000000000000000000000000000000006';
-  return t.address === lc(addr);
+  if (t.address === 'native') return addr === 'native' || WRAPPED_NATIVE.has(lc(addr));
+  return (t.addresses ?? [t.address]).includes(lc(addr));
 }
 
 /**

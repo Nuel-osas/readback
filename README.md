@@ -6,7 +6,21 @@
 
 In February 2025 Bybit lost $1.46B. Its signers were shown a routine transfer; the hardware wallets signed a Safe `DELEGATECALL` that replaced the Safe's implementation. Every check happened on the channel the attacker controlled. Aviation solved this decades ago: every clearance is read back aloud, and the controller listens for the mismatch. Readback puts that loop in front of a signature.
 
-## Proof on a public chain
+## Proof on two public chains
+
+The same guard, at the same address `0xAA3356D3E0237898a3A613E111625043A1614355`, on Base Sepolia and Arbitrum Sepolia.
+
+### Arbitrum Sepolia
+
+| | Guarded Safe | Unguarded control |
+|---|---|---|
+| Honest transfer | notary attested, [executed](https://sepolia.arbiscan.io/tx/0x1b5bc5e4c38cac581e019318b4e5b2d6093d161ff9bc693e2a342cd55f71c5e9) | |
+| Bybit-shaped `DELEGATECALL`, both owners signed | notary refused, **[reverted](https://sepolia.arbiscan.io/tx/0xfc6bca84ad0f4ca7d5d80d701d0f6ddf7c5b4021a5e3a3ef7ee7119be11cc6df)** | **[succeeded](https://sepolia.arbiscan.io/tx/0xf25f47c35691624d9921631b371d663616b7faae5358beace119025eca52bbf9)**: implementation replaced |
+| A Safe paying 2,500 **USDG**, read back by voice | "Pay the design studio two thousand five hundred USDG" → MATCH, attestation signed | |
+
+[ReadbackGuard on Arbitrum Sepolia](https://arbitrum-sepolia.blockscout.com/address/0xAA3356D3E0237898a3A613E111625043A1614355?tab=contract), verified source. Paxos USDG is understood on Arbitrum One and Arbitrum Sepolia.
+
+### Base Sepolia
 
 Base Sepolia, run by [`scripts/evidence.mjs`](scripts/evidence.mjs) against two identical 2-of-2 Safes, one guarded and one not:
 

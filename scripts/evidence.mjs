@@ -10,20 +10,26 @@
 import { writeFileSync } from 'node:fs';
 import { createPublicClient, createWalletClient, encodeFunctionData, http, parseAbi, parseEther, getAddress, concatHex, keccak256, toHex } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
-import { baseSepolia } from 'viem/chains';
+import { arbitrumSepolia, baseSepolia } from 'viem/chains';
 
 const NOTARY = process.env.NOTARY_URL ?? 'http://127.0.0.1:4311/api/readback';
-const GUARD = '0xAA3356D3E0237898a3A613E111625043A1614355';
-const BYBIT_SHAPE = '0x60b70BC2E774d7A781138009A28B2917893dc98A';
+// Same script, either testnet. CHAIN=421614 runs it on Arbitrum Sepolia.
+const NET = Number(process.env.CHAIN ?? 84532);
+const CFG = {
+  84532: { chain: baseSepolia, rpc: 'https://sepolia.base.org', explorer: 'https://sepolia.basescan.org/tx/', guard: '0xAA3356D3E0237898a3A613E111625043A1614355', bybit: '0x60b70BC2E774d7A781138009A28B2917893dc98A', out: 'evidence/base-sepolia.json' },
+  421614: { chain: arbitrumSepolia, rpc: 'https://sepolia-rollup.arbitrum.io/rpc', explorer: 'https://sepolia.arbiscan.io/tx/', guard: process.env.GUARD, bybit: process.env.BYBIT_SHAPE, out: 'evidence/arbitrum-sepolia.json' },
+}[NET];
+const GUARD = CFG.guard;
+const BYBIT_SHAPE = CFG.bybit;
 const SINGLETON = '0x29fcB43b46531BcA003ddC8FCB67FFE91900C762'; // SafeL2 1.4.1
 const FACTORY = '0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67';
 const ZERO = '0x0000000000000000000000000000000000000000';
-const EXPLORER = 'https://sepolia.basescan.org/tx/';
+const EXPLORER = CFG.explorer;
 
 const o1 = privateKeyToAccount(process.env.DEPLOYER_KEY);
 const o2 = privateKeyToAccount(process.env.OWNER2_KEY);
-const pub = createPublicClient({ chain: baseSepolia, transport: http('https://sepolia.base.org') });
-const w = createWalletClient({ account: o1, chain: baseSepolia, transport: http('https://sepolia.base.org') });
+const pub = createPublicClient({ chain: CFG.chain, transport: http(CFG.rpc) });
+const w = createWalletClient({ account: o1, chain: CFG.chain, transport: http(CFG.rpc) });
 
 const SAFE = parseAbi([
   'function setup(address[] owners, uint256 threshold, address to, bytes data, address fallbackHandler, address paymentToken, uint256 payment, address paymentReceiver)',
@@ -81,7 +87,7 @@ async function run(safe, tx, tail, gas, expectRevert = false) {
 }
 
 async function notary(safe, tx, intent) {
-  const r = await fetch(NOTARY, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ chainId: 84532, safe, sender: o1.address, intent, tx: { ...tx, value: tx.value.toString(), nonce: (nonces.get(safe) ?? 0n).toString() } }) });
+  const r = await fetch(NOTARY, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ chainId: NET, safe, sender: o1.address, intent, tx: { ...tx, value: tx.value.toString(), nonce: (nonces.get(safe) ?? 0n).toString() } }) });
   return r.json();
 }
 
@@ -92,7 +98,7 @@ const control = await newSafe(salt + 1n);
 note('guarded Safe', guarded);
 note('control Safe (no guard)', control);
 
-for (const s of [guarded, control]) await wait(await w.sendTransaction({ to: s, value: parseEther('0.0005') }));
+for (const s of [guarded, control]) await wait(await w.sendTransaction({ to: s, value: parseEther(NET === 421614 ? '0.0004' : '0.0005') }));
 const { rc: rn } = await run(guarded, { to: GUARD, value: 0n, data: encodeFunctionData({ abi: GUARD_ABI, functionName: 'setNotary', args: [process.env.NOTARY_ADDRESS] }), operation: 0 });
 note('notary on guard', await at(() => pub.readContract({ address: GUARD, abi: GUARD_ABI, functionName: 'notaryOf', args: [guarded], blockNumber: rn.blockNumber })));
 await run(guarded, { to: guarded, value: 0n, data: encodeFunctionData({ abi: SAFE, functionName: 'setGuard', args: [GUARD] }), operation: 0 });
@@ -122,5 +128,5 @@ note('Bybit shape, control Safe', `${rC.status} ${EXPLORER}${hC}`);
 const slotC = await at(() => pub.getStorageAt({ address: control, slot: '0x0', blockNumber: rC.blockNumber }));
 note('control implementation after', getAddress(`0x${slotC.slice(26)}`));
 
-writeFileSync('evidence/base-sepolia.json', JSON.stringify(Object.fromEntries(log), null, 2));
-console.log('\nwrote evidence/base-sepolia.json');
+writeFileSync(CFG.out, JSON.stringify(Object.fromEntries(log), null, 2));
+console.log(`\nwrote ${CFG.out}`);

@@ -34,7 +34,7 @@ export default function Landing() {
           <div className="hero__foot">
             <span>Voice by <b>AssemblyAI Voice Agent API</b></span>
             <span>Enforced by <b>ReadbackGuard</b> for Safe</span>
-            <span>Decodes <b>Base</b> mainnet, live</span>
+            <span>Live on <b>Arbitrum</b> and <b>Base</b></span>
           </div>
         </div>
       </header>
@@ -49,6 +49,7 @@ export default function Landing() {
               <span><i>15/15</i> verdicts spoken word for word</span>
               <span><i>77/77</i> real MultiSend batches decoded</span>
               <span><i>24/24</i> guard tests on real Safe v1.3.0 and v1.4.1</span>
+              <span>ReadbackGuard live on <b>Arbitrum Sepolia</b> and <b>Base Sepolia</b></span>
               <span><i>1.9s</i> from your last word to the verdict</span>
               <span><i>~$0.02</i> per readback</span>
             </div>

@@ -13,7 +13,17 @@ export const TOKENS = {
   '0xb20000000000000000000078ee7ce2fe4908108c': { symbol: 'NVDAc', decimals: 8, spoken: ['nvidia', 'nvda'] },
   '0xb200000000000000000000c2e324d24d7eecd1fb': { symbol: 'AAPLc', decimals: 8, spoken: ['apple', 'aapl'] },
   '0xb2000000000000000000001e800a7f5189430cd0': { symbol: 'TSLAc', decimals: 8, spoken: ['tesla', 'tsla'] },
+  // Arbitrum One
+  '0x004b506865409877c9fa29bfb1eba929984b9bbc': { symbol: 'USDG', decimals: 6, spoken: ['usdg', 'global dollar', 'global dollars'] },
+  '0xaf88d065e77c8cc2239327c5edb3a432268e5831': { symbol: 'USDC', decimals: 6, spoken: ['usdc', 'usd coin', 'dollars', 'usd'] },
+  '0x82af49447d8a07e3bd95bd0d56f35241523fbab1': { symbol: 'WETH', decimals: 18, spoken: ['eth', 'ether', 'weth', 'ethereum'] },
+  // Arbitrum Sepolia
+  '0xffc95faa3d63cde504a05b567c600b78c0b41892': { symbol: 'USDG', decimals: 6, spoken: ['usdg', 'global dollar', 'global dollars'] },
+  '0x75faf114eafb1bdbe2f0316df893fd58ce46aa4d': { symbol: 'USDC', decimals: 6, spoken: ['usdc', 'usd coin', 'dollars', 'usd'] },
 };
+
+/** Wrapped ETH on each supported chain: saying "ETH" matches any of these. */
+export const WRAPPED_NATIVE = new Set(['0x4200000000000000000000000000000000000006', '0x82af49447d8a07e3bd95bd0d56f35241523fbab1']);
 
 export const NATIVE = { symbol: 'ETH', decimals: 18, spoken: ['eth', 'ether', 'ethereum'] };
 
@@ -34,10 +44,10 @@ export function tokenBySpoken(word) {
   if (!word) return undefined;
   const w = word.toLowerCase().replace(/[^a-z0-9 ]/g, '').trim();
   if (NATIVE.spoken.includes(w)) return { address: 'native', ...NATIVE };
-  for (const [address, t] of Object.entries(TOKENS)) {
-    if (t.symbol.toLowerCase() === w || t.spoken.includes(w)) return { address, ...t };
-  }
-  return undefined;
+  const all = Object.entries(TOKENS).filter(([, t]) => t.symbol.toLowerCase() === w || t.spoken.includes(w));
+  if (!all.length) return undefined;
+  // The same symbol exists on several chains; a spoken word matches any of its deployments.
+  return { address: all[0][0], addresses: all.map(([a]) => a), ...all[0][1] };
 }
 
 /**

@@ -22,7 +22,7 @@ const out = '/private/tmp/claude-501/-Users-emmanuelosadebe-Downloads-projects-h
   });
   await p.setViewport({ width: 1440, height: 1100 });
   await p.goto((process.env.APP_URL || 'http://127.0.0.1:4311') + '/app', { waitUntil: 'networkidle2' });
-  const idx = { swap: 0, airdrop: 1, 'safe-send': 2, 'safe-bybit': 3 }[scene];
+  const idx = { 'arb-usdg': 0, 'arb-bybit': 1, swap: 2, airdrop: 3, 'safe-send': 4, 'safe-bybit': 5 }[scene];
   const t0 = Date.now();
   await (await p.$$('.scene'))[idx].click();
   const status = () => p.evaluate(() => document.querySelector('.status')?.innerText || '');

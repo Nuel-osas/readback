@@ -21,11 +21,25 @@ const NO_HISTORY = getAddress('0x3f9b6c0e5a21d4e7b8c90a1f2e3d4c5b6a7980f1');
 
 /** The guarded 2-of-2 Safe from evidence/base-sepolia.json, protected by the deployed ReadbackGuard. */
 export const DEMO_SAFE = getAddress('0x48aB94CfED0045456DfcD750Bf419199a5fa11d5');
-export const GUARD = { 84532: getAddress('0xAA3356D3E0237898a3A613E111625043A1614355') };
+/** The guarded 2-of-2 Safe from evidence/arbitrum-sepolia.json. Same guard address on both chains. */
+export const ARB_SAFE = getAddress('0x5Ae670a3b7800DA978529E82DF39E04C0FF058F0');
+export const GUARD = { 84532: getAddress('0xAA3356D3E0237898a3A613E111625043A1614355'), 421614: getAddress('0xAA3356D3E0237898a3A613E111625043A1614355') };
+const USDG_ARB_SEPOLIA = getAddress('0xFFC95faa3d63Cde504a05B567C600B78C0b41892');
+const VENDOR = getAddress('0x9a4e8b7c6d5f40312f8e7d6c5b4a39281706f5e4');
 const BYBIT_SHAPE = getAddress('0x60b70BC2E774d7A781138009A28B2917893dc98A');
 const COLD_WALLET = getAddress('0x7adcCAD209A23b730Ea3E637A1Eb09b51CbD2170');
 
 export const SCENARIOS = [
+  {
+    id: 'arb-usdg', chainId: 421614, site: 'app.safe.global · Arbitrum', claim: 'Pay the design studio 2,500 USDG', kind: 'Safe · Arbitrum',
+    hint: '“pay the design studio two thousand five hundred USDG”', safe: ARB_SAFE,
+    build: () => ({ to: USDG_ARB_SEPOLIA, value: '0', operation: 0, data: encodeFunctionData({ abi, functionName: 'transfer', args: [VENDOR, parseUnits('2500', 6)] }) }),
+  },
+  {
+    id: 'arb-bybit', chainId: 421614, site: 'app.safe.global · Arbitrum', claim: 'Move 1 ETH to your cold wallet', kind: 'Safe · Arbitrum', note: 'The Bybit shape, against a real guarded Safe on Arbitrum',
+    hint: '“send one ETH to my cold wallet”', safe: ARB_SAFE,
+    build: () => ({ to: BYBIT_SHAPE, value: '0', operation: 1, data: encodeFunctionData({ abi, functionName: 'transfer', args: [BYBIT_SHAPE, 0n] }) }),
+  },
   {
     id: 'swap', chainId: 8453, site: 'app.uniswap.org', claim: 'Swap 100 USDC for ETH', kind: 'Wallet',
     hint: '“swap a hundred USDC for ETH”',
@@ -49,7 +63,13 @@ export const SCENARIOS = [
 ];
 
 export const DEMO_SENDER = getAddress('0x1111111111111111111111111111111111111111');
-export const EXPLORERS = { 8453: 'https://basescan.org', 84532: 'https://sepolia.basescan.org' };
+export const EXPLORERS = { 8453: 'https://basescan.org', 84532: 'https://sepolia.basescan.org', 42161: 'https://arbiscan.io', 421614: 'https://sepolia.arbiscan.io' };
+export const EVIDENCE_ARB = {
+  guard: 'https://arbitrum-sepolia.blockscout.com/address/0xAA3356D3E0237898a3A613E111625043A1614355?tab=contract',
+  honest: 'https://sepolia.arbiscan.io/tx/0x1b5bc5e4c38cac581e019318b4e5b2d6093d161ff9bc693e2a342cd55f71c5e9',
+  blocked: 'https://sepolia.arbiscan.io/tx/0xfc6bca84ad0f4ca7d5d80d701d0f6ddf7c5b4021a5e3a3ef7ee7119be11cc6df',
+  control: 'https://sepolia.arbiscan.io/tx/0xf25f47c35691624d9921631b371d663616b7faae5358beace119025eca52bbf9',
+};
 export const EVIDENCE = {
   guard: 'https://base-sepolia.blockscout.com/address/0xAA3356D3E0237898a3A613E111625043A1614355?tab=contract',
   honest: 'https://sepolia.basescan.org/tx/0x1ecb75a4b62be2006ea94168e2232ec0a371ed3e6eb2fa72b05ae5f23ab42c69',

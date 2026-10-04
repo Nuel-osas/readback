@@ -119,3 +119,20 @@ test('nothing hexadecimal is ever spoken', () => {
   const r = run({ action: 'claim' }, { to: USDC, data });
   assert.doesNotMatch(r.spoken, /0x/);
 });
+
+test('USDG on Arbitrum is heard and matched as USDG', () => {
+  const USDG = '0xFFC95faa3d63Cde504a05B567C600B78C0b41892';
+  const VENDOR = '0x2222222222222222222222222222222222222222';
+  const data = encodeFunctionData({ abi, functionName: 'transfer', args: [VENDOR, parseUnits('100', 6)] });
+  const r = readback({ action: 'pay', amount: 100, token: 'global dollars', recipient: VENDOR }, decodeTx({ to: USDG, data }), { [VENDOR.toLowerCase()]: { isContract: false, txCount: 4 } }, ME);
+  assert.equal(r.verdict, 'match');
+  assert.match(r.spoken, /send 100 USDG/);
+});
+
+test('saying ETH matches wrapped ETH on Arbitrum', () => {
+  const ARB_ROUTER = '0x0000000000000000000000000000000000000abc';
+  const AWETH = '0x82aF49447D8a07e3bd95BD0d56f35241523fBab1', AUSDC = '0xaf88d065e77c8cC2239327C5EDb3A432268e5831';
+  const data = encodeFunctionData({ abi, functionName: 'exactInputSingle', args: [{ tokenIn: AUSDC, tokenOut: AWETH, fee: 500, recipient: ME, amountIn: parseUnits('100', 6), amountOutMinimum: parseEther('0.02'), sqrtPriceLimitX96: 0n }] });
+  const r = readback({ action: 'swap', amount: 100, token: 'usdc', token_out: 'eth' }, decodeTx({ to: ARB_ROUTER, data }), { [ARB_ROUTER]: { isContract: true, verified: true, name: 'SwapRouter02', createdAt: '2023-01-01T00:00:00Z' } }, ME);
+  assert.equal(r.verdict, 'match');
+});

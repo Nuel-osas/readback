@@ -8,7 +8,7 @@ import { withReadback } from '@readback/provider';
 import Signal from '../components/Signal';
 import { Mark } from '../components/Chrome';
 import { startReadback } from '../../lib/voice';
-import { DEMO_SENDER, EVIDENCE, EXPLORERS, GUARD, SCENARIOS } from '../../lib/scenarios';
+import { DEMO_SENDER, EVIDENCE, EVIDENCE_ARB, EXPLORERS, GUARD, SCENARIOS } from '../../lib/scenarios';
 
 const norm = (s) => (s || '').toLowerCase().replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
 const ms = (a, b) => (a && b ? `${Math.round(b - a)} ms` : '—');
@@ -178,7 +178,7 @@ export default function Console() {
           <details className="paste">
             <summary>Paste any transaction</summary>
             <div className="paste__grid">
-              <select className="field" value={paste.chainId} onChange={(e) => setPaste({ ...paste, chainId: Number(e.target.value) })}><option value={8453}>Base</option><option value={84532}>Base Sepolia</option></select>
+              <select className="field" value={paste.chainId} onChange={(e) => setPaste({ ...paste, chainId: Number(e.target.value) })}><option value={8453}>Base</option><option value={84532}>Base Sepolia</option><option value={42161}>Arbitrum One</option><option value={421614}>Arbitrum Sepolia</option></select>
               <input className="field" placeholder="to  0x…" value={paste.to} onChange={(e) => setPaste({ ...paste, to: e.target.value })} />
               <input className="field" placeholder="data  0x…" value={paste.data} onChange={(e) => setPaste({ ...paste, data: e.target.value })} />
               <input className="field" placeholder="value in wei" value={paste.value} onChange={(e) => setPaste({ ...paste, value: e.target.value })} />
@@ -193,6 +193,11 @@ export default function Console() {
             <a href={EVIDENCE.honest} target="_blank" rel="noreferrer">Attested transfer, executed ↗</a>
             <a href={EVIDENCE.blocked} target="_blank" rel="noreferrer">Bybit shape on guarded Safe, reverted ↗</a>
             <a href={EVIDENCE.control} target="_blank" rel="noreferrer">Same tx on unguarded Safe, taken over ↗</a>
+            <div className="mono dim small" style={{ margin: '12px 0 8px' }}>ON-CHAIN EVIDENCE · ARBITRUM SEPOLIA</div>
+            <a href={EVIDENCE_ARB.guard} target="_blank" rel="noreferrer">ReadbackGuard, verified source ↗</a>
+            <a href={EVIDENCE_ARB.honest} target="_blank" rel="noreferrer">Attested transfer, executed ↗</a>
+            <a href={EVIDENCE_ARB.blocked} target="_blank" rel="noreferrer">Bybit shape on guarded Safe, reverted ↗</a>
+            <a href={EVIDENCE_ARB.control} target="_blank" rel="noreferrer">Same tx on unguarded Safe, taken over ↗</a>
           </div>
         </section>
 
@@ -251,7 +256,7 @@ export default function Console() {
                     <dl>
                       <div><dt>Safe tx hash</dt><dd className="mono">{result.safe.safeTxHash}</dd></div>
                       <div><dt>Intent hash</dt><dd className="mono">{result.attestation.intentHash}</dd></div>
-                      <div><dt>Guard</dt><dd className="mono"><a href={`${EXPLORERS[84532]}/address/${result.attestation.guard}`} target="_blank" rel="noreferrer">{result.attestation.guard}</a></dd></div>
+                      <div><dt>Guard</dt><dd className="mono"><a href={`${EXPLORERS[active?.chainId ?? paste.chainId] ?? EXPLORERS[84532]}/address/${result.attestation.guard}`} target="_blank" rel="noreferrer">{result.attestation.guard}</a></dd></div>
                       <div><dt>Expires</dt><dd>{new Date(result.attestation.expiry * 1000).toLocaleTimeString()}</dd></div>
                     </dl>
                     <p className="dim small">Append these bytes after the owners’ signatures. ReadbackGuard verifies them on-chain; without them the Safe refuses to execute.</p>
